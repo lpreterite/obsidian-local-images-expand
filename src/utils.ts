@@ -3,6 +3,7 @@ import got from "got";
 import { fromBuffer } from "file-type";
 import isSvg from "is-svg";
 import filenamify from "filenamify";
+import crypto from "crypto";
 
 import { DIRTY_IMAGE_TAG, FORBIDDEN_SYMBOLS_FILENAME_PATTERN } from "./config";
 /*
@@ -67,3 +68,6 @@ export function pathJoin(dir: string, subpath: string): string {
   // it seems that obsidian do not understand paths with backslashes in Windows, so turn them into forward slashes
   return result.replace(/\\/g, "/");
 }
+
+export const md5 = (data) =>
+  crypto.createHash("md5").update(data).digest("hex");
