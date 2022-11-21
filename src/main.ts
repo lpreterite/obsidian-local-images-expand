@@ -28,8 +28,12 @@ export default class LocalImagesPlugin extends Plugin {
   private async proccessPage(file: TFile, silent = false) {
     // const content = await this.app.vault.read(file);
     let mediaRootDirectory = this.settings.mediaRootDirectory
+    
+    // support ${fileBaseName} value
+    mediaRootDirectory = mediaRootDirectory.replace("\${fileBaseName}",file.basename)
+    
     if(this.settings.mediaRootDirectoryBaseOnFile){
-      mediaRootDirectory = file.parent.path + "/" + this.settings.mediaRootDirectory.replace(/^(\/|\.\/)/,"")
+      mediaRootDirectory = file.parent.path + "/" + mediaRootDirectory.replace(/^(\/|\.\/)/,"")
     }
     const content = await this.app.vault.cachedRead(file);
 
