@@ -9,6 +9,7 @@ import {
   fileExtByContent,
   cleanFileName,
   pathJoin,
+  md5,
 } from "./utils";
 import {
   FILENAME_TEMPLATE,
@@ -79,9 +80,7 @@ async function chooseFileName(
   }
   // if there is no anchor try get file name from url
   if (!baseName) {
-    const parsedUrl = new URL(link);
-
-    baseName = path.basename(parsedUrl.pathname);
+    baseName = md5(contentData);
   }
   // if there is no part for file name from url use name template
   if (!baseName) {
