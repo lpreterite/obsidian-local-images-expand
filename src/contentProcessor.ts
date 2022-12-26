@@ -53,7 +53,7 @@ export function imageTagProcessor(
             let _fileName = fileName;
             if (useRelativePath)
               _fileName = path.posix.relative(file.parent.path, fileName);
-            return `![${anchor}](${_fileName})`;
+            return `![${anchor}](${_fileName.replace(/\ /g, "%20")})`;
           } else {
             return match;
           }
