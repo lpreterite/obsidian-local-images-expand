@@ -27,13 +27,17 @@ export default class LocalImagesPlugin extends Plugin {
 
   private async proccessPage(file: TFile, silent = false) {
     // const content = await this.app.vault.read(file);
-    let mediaRootDirectory = this.settings.mediaRootDirectory
-    
+    let mediaRootDirectory = this.settings.mediaRootDirectory;
+
     // support ${fileBaseName} value
-    mediaRootDirectory = mediaRootDirectory.replace("\${fileBaseName}",file.basename)
-    
-    if(this.settings.mediaRootDirectoryBaseOnFile){
-      mediaRootDirectory = file.parent.path + "/" + mediaRootDirectory.replace(/^(\/|\.\/)/,"")
+    mediaRootDirectory = mediaRootDirectory.replace(
+      "${fileBaseName}",
+      file.basename
+    );
+
+    if (this.settings.mediaRootDirectoryBaseOnFile) {
+      mediaRootDirectory =
+        file.parent.path + "/" + mediaRootDirectory.replace(/^(\/|\.\/)/, "");
     }
     const content = await this.app.vault.cachedRead(file);
 
@@ -45,7 +49,12 @@ export default class LocalImagesPlugin extends Plugin {
     const fixedContent = await replaceAsync(
       cleanedContent,
       EXTERNAL_MEDIA_LINK_PATTERN,
-      imageTagProcessor(this.app, mediaRootDirectory)
+      imageTagProcessor(
+        this.app,
+        mediaRootDirectory,
+        file,
+        this.settings.useRelativePath
+      )
     );
 
     if (content != fixedContent) {
@@ -336,10 +345,9 @@ class SettingTab extends PluginSettingTab {
         })
       );
 
-
     new Setting(containerEl)
       .setName("Path is based on the MD file")
-      .setDesc("The path where the media files are saved starts from the MD file directory location!")
+      .setDesc("开启后图片将存放在其文档的同级目录下。")
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.mediaRootDirectoryBaseOnFile)
@@ -350,8 +358,22 @@ class SettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
+      .setName("Use Relative Path")
+      .setDesc("开启后将媒体对象存放路径变成相对路径。")
+      .addToggle((toggle) =>
+        toggle
+          .setValue(this.plugin.settings.useRelativePath)
+          .onChange(async (value) => {
+            this.plugin.settings.useRelativePath = value;
+            await this.plugin.saveSettings();
+          })
+      );
+
+    new Setting(containerEl)
       .setName("Media folder")
-      .setDesc("Folder to keep all downloaded media files.")
+      .setDesc(
+        "Folder to keep all downloaded media files. 使用`${fileBaseName}`可使用文档名称作为图像存放目录"
+      )
       .addText((text) =>
         text
           .setValue(this.plugin.settings.mediaRootDirectory)

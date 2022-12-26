@@ -1,7 +1,7 @@
 import { URL } from "url";
 import path from "path";
 
-import { App, DataAdapter } from "obsidian";
+import { App, DataAdapter, TFile } from "obsidian";
 
 import {
   isUrl,
@@ -18,7 +18,12 @@ import {
 } from "./config";
 import { linkHashes } from "./linksHash";
 
-export function imageTagProcessor(app: App, mediaDir: string) {
+export function imageTagProcessor(
+  app: App,
+  mediaDir: string,
+  file: TFile,
+  useRelativePath: Boolean
+) {
   async function processImageTag(match: string, anchor: string, link: string) {
     if (!isUrl(link)) {
       return match;
@@ -45,7 +50,10 @@ export function imageTagProcessor(app: App, mediaDir: string) {
           }
 
           if (fileName) {
-            return `![${anchor}](${fileName})`;
+            let _fileName = fileName;
+            if (useRelativePath)
+              _fileName = path.posix.relative(file.parent.path, fileName);
+            return `![${anchor}](${_fileName})`;
           } else {
             return match;
           }
