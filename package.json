@@ -27,14 +27,8 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "file-type": "^16.5.3",
     "filenamify": "github:aleksey-rezvov/filenamify",
-    "got": "^11.8.2",
-    "install": "^0.13.0",
-    "is-svg": "^4.3.1",
-    "npm": "^7.24.0",
     "rollup-plugin-execute": "^1.1.1",
-    "safe-regex": "^2.1.1",
-    "ts-xxhash": "^1.0.6"
+    "safe-regex": "^2.1.1"
   }
 }

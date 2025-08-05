@@ -9,7 +9,7 @@ import {
   fileExtByContent,
   cleanFileName,
   pathJoin,
-  md5,
+  SHA256,
 } from "./utils";
 import {
   FILENAME_TEMPLATE,
@@ -87,7 +87,8 @@ async function chooseFileName(
     return { fileName: "", needWrite: false };
   }
 
-  let fileName = pathJoin(dir, `${md5(contentData)}.${fileExt}`);
+  const hash = await SHA256(contentData);
+  let fileName = pathJoin(dir, `${hash}.${fileExt}`);
   let needWrite = true;
   if (await adapter.exists(fileName, false)) {
     linkHashes.ensureHashGenerated(link, contentData);
