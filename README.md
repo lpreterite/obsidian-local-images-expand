@@ -23,6 +23,23 @@ Obsidian Local Images Expand 是一个Obsidian桌面插件。
 - 下载当前笔记图片： Local images - Expand: Download images locally
 - 下载所有笔记图片： Local images - Expand: Download images locally for all youer notes
 
+## 安装
+
+先安装 [Obsidian42](https://github.com/TfTHacker/obsidian42-brat) 这个插件。用来支持安装来自Github仓库的插件。
+
+然后点击下面按钮：
+
+![step1](docs/step1.png)
+
+输入如下内容：
+
+- `Repository`：lpreterite/obsidian-local-images-expand
+- `Version`：1.2.1
+
+> 提示找不到`manifest.json`可能是你所在的网段，无法访问Github导致。
+
+接下来，去**第三方插件**找到 obsidian-local-images 启用就可以了。
+
 ## 配置说明
 
 | 配置项                       | 默认值  | 使用说明                           |
