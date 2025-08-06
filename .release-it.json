@@ -58,9 +58,9 @@
             "section": "🔧 Continuous Integration | CI 配置"
           }
         ],
-        "commitUrlFormat": "https://gogs.infzm.com/INF_FE/vue-component-template/commit/{{hash}}",
-        "issueUrlFormat": "https://gogs.infzm.com/INF_FE/vue-component-template/issues/{{id}}",
-        "compareUrlFormat": "https://gogs.infzm.com/INF_FE/vue-component-template/compare/{{previousTag}}...{{currentTag}}"
+        "commitUrlFormat": "https://github.com/lpreterite/obsidian-local-images-expand/commit/{{hash}}",
+        "issueUrlFormat": "https://github.com/lpreterite/obsidian-local-images-expand/issues/{{id}}",
+        "compareUrlFormat": "https://github.com/lpreterite/obsidian-local-images-expand/compare/{{previousTag}}...{{currentTag}}"
       }
     }
   }
