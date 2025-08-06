@@ -38,7 +38,7 @@ Obsidian Local Images Expand 是一个Obsidian桌面插件。
 
 > 提示找不到`manifest.json`可能是你所在的网段，无法访问Github导致。
 
-接下来，去**第三方插件**找到 obsidian-local-images 启用就可以了。
+接下来，去**第三方插件**找到 `Local images - Expand` 启用就可以了。
 
 ## 配置说明
 
