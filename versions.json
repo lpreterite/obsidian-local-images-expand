@@ -6,5 +6,5 @@
   "0.14.1": "0.12.15",
   "0.14.2": "0.12.15",
   "2.0.0-beta.0": "1.8.0",
-  "$npm_package_version": "$(cat manifest.json | json minAppVersion)"
+  "2.0.0-beta.1": "1.8.0"
 }

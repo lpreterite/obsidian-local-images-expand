@@ -1,47 +1,86 @@
-# Obsidian Local Images
+# Obsidian Local Images Expand
 
-**This plugin is still young, backups are a good idea.**
+[English](./README_EN.md)
 
-Obsidian Local Images is a plugin for [Obsidian](https://obsidian.md/) desktop version. 
+Obsidian Local Images Expand 是一个Obsidian桌面插件。
 
-The plugin finds all links to external images in your notes, downloads and saves images locally and finally adjusts the link in your note to point to the local image files.
+> 2.0.0版本后将支持移动场景使用，详见2.0.0-beta.0版本
+
+插件核心功能为找到笔记中的外部图片，将外部图片下载到本地后替换笔记中的引用。
+
+## 功能
+
+支持使用场景两种：
+
+### 自动替换：粘贴后自动下载并替换
 
 ![](docs/obsidian-local-images-sep2021.gif)
 
-For example, we initially have a markup in the note like this:
-
-    ![](https://picsum.photos/200/300.jpg)
-
-Local Images plugin will download image 300.jpg, save in **media** subdirectory of the vault, than change the markup so it refer to locally stored image:
-
-    ![](media/300.jpg)
-
-It is useful when you copy paste parts from web-pages, and want to keep images in your vault. Because external links can be moved or expired in future.
+### 调用命令：
 
 ![](docs/obsidian-local-images-html-sep2021.gif)
 
-Use it with commands:
+- 下载当前笔记图片： Local images - Expand: Download images locally
+- 下载所有笔记图片： Local images - Expand: Download images locally for all youer notes
 
-**Download images locally** -- your active page will be processed.
+## 配置说明
 
-or
+| 配置项                       | 默认值  | 使用说明                           |
+|------------------------------|---------|--------------------------------|
+| realTimeUpdate               | false   | 是否启用实时更新功能（自动替换）     |
+| realTimeUpdateInterval       | 1000    | 实时更新检查间隔（毫秒）             |
+| realTimeAttemptsToProcess    | 3       | 实时更新尝试处理次数               |
+| cleanContent                 | true    | 是否清理内容格式                   |
+| showNotifications            | false   | 是否显示通知提醒                   |
+| include                      | .*\\.md | 需要处理的文件匹配规则（正则表达式） |
+| mediaRootDirectory           | media   | 图片保存的根目录名                 |
+| mediaRootDirectoryBaseOnFile | true    | 是否基于文件位置创建图片目录       |
+| useRelativePath              | false   | 是否使用相对路径引用图片           |
 
-**Download images locally for all your notes** -- will be processed all the pages in your vault, that corresponds to **Include** parameter in the plugin's settings.
+## 其他说明
 
-Also you can turn on in plugin's settings processing the active page when external links pasted into the page.
+### 存放图片的位置
 
-The plugin was not tested with mobile version, probably it can work with it too.
+插件支持两种使用情况：
+
+#### 集中在目录根
+
+部分用户希望存所有资源集中存放在目录根下的`medias`目录中。这类用户请将配置`mediaRootDirectoryBaseOnFile`设为`false`即可。
+
+希望笔记引用的路径为相对路径（如：`../medias/xxx.png`），将`useRelativePath`设为`true`即可。
+
+以下是存放内容示例：
+
+```
+notes/
+ - medias/
+  - xxx.png
+ - examples/
+  - post1.md
+```
+
+#### 放在笔记所在目录
+
+另一类用户希望将图片资源存放在笔记同一目录下。这类用户请将配置`mediaRootDirectoryBaseOnFile`设为`ture`。
+
+还有部分用户希望存放的图片资源以笔记标题的目录进行存放，这类用户请在配置`mediaRootDirectory`中添加目录标记，像这样：`assets/${fileBaseName}`。
+
+以下是存放内容示例：
+
+```
+notes/
+ - examples/
+  - assets/
+   - post1/
+    - xxx.png
+  - post1.md
+```
+
+### 下载图片文件名称的说明
+
+我的使用场景中经常遇到无法获得图片资源名称的情况，所以目前统一使用MD5作为图像文件的名称。在最近的2.0.0-beta.0版本中，为了适应移动场景下可用，移除了所有Nodejs依赖，使用浏览器支持的SHA256来命名图像文件的名称。使用过程中对图像文件名称有不同诉求的，可以在issues中反馈。
 
 ## Credit
 
-This plugin was developed from [niekcandaele's](https://github.com/niekcandaele/obsidian-local-images) code base. Key principles for downloading, saving were given there, and some texts too. Even the plugin's name is original.
+这插件是fork [aleksey-rezvov/obsidian-local-images](https://github.com/aleksey-rezvov/obsidian-local-images)的项目进行二次修改的。 见 aleksey-rezvov 长久未维护，我自己也有一些新诉求，便进行了二次开发。最后感谢 aleksey-rezvov 为我们带来的贡献
 
-## Development
-
-```
-# Start the bundler in watch mode
-npm run dev
-
-# It's useful to set a symlink so you don't have to copy files over constantly
-ln -s /home/user/code/obsidian-local-images /home/user/notes/dev/.obsidian/plugins/local-images
-```
