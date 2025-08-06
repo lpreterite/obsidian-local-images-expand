@@ -1,5 +1,7 @@
 # Obsidian Local Images Expand
 
+[中文](./README.md)
+
 Obsidian Local Images Expand is a desktop plugin for Obsidian.
 
 > Version 2.0.0 and above will support mobile usage, see version 2.0.0-beta.0 for details
@@ -12,14 +14,31 @@ Supports two usage scenarios:
 
 ### Automatic Replacement: Download and Replace After Pasting
 
-![](docs/obsidian-local-images-sep2021.gif)
+![Automatic replacement demonstration](docs/obsidian-local-images-sep2021.gif)
 
-### Command Invocation:
+### Command Invocation
 
-![](docs/obsidian-local-images-html-sep2021.gif)
+![Command invocation demonstration](docs/obsidian-local-images-html-sep2021.gif)
 
 - Download images for current note: Local images - Expand: Download images locally
 - Download images for all notes: Local images - Expand: Download images locally for all your notes
+
+## Installation
+
+First, install the [Obsidian42](https://github.com/TfTHacker/obsidian42-brat) plugin. This plugin supports installing plugins from Github repositories.
+
+Then click the button below:
+
+![Installation step 1](docs/step1.png)
+
+Enter the following information:
+
+- `Repository`: lpreterite/obsidian-local-images-expand
+- `Version`: 1.2.1
+
+> If you receive a "manifest.json not found" error, it may be due to network connectivity issues with Github in your region.
+
+Next, go to **Community Plugins** to find and enable `Local images - Expand`.
 
 ## Configuration
 
@@ -49,7 +68,7 @@ If you want the note references to use relative paths (e.g., `../medias/xxx.png`
 
 Here's an example of the storage structure:
 
-```
+```plaintext
 notes/
  - medias/
   - xxx.png
@@ -65,7 +84,7 @@ Some users want to store image resources in directories named after note titles.
 
 Here's an example of the storage structure:
 
-```
+```plaintext
 notes/
  - examples/
   - assets/
