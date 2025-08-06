@@ -1,17 +1,17 @@
-import { XXHash32 } from "ts-xxhash";
+import { SHA256 } from "./utils";
 
 class LinkHashes {
-  private linksInfo: Record<string, number> = {};
+  private linksInfo: Record<string, string> = {};
 
-  ensureHashGenerated(link: string, data: ArrayBuffer) {
+  async ensureHashGenerated(link: string, data: ArrayBuffer) {
     if (!this.linksInfo[link]) {
-      this.linksInfo[link] = XXHash32.hash(0, data).toNumber();
+      this.linksInfo[link] = await SHA256(data);
     }
   }
 
-  isSame(link: string, data: ArrayBuffer) {
-    const fileHash = XXHash32.hash(0, data).toNumber();
-    return this.linksInfo[link] == fileHash;
+  async isSame(link: string, data: ArrayBuffer) {
+    const fileHash = await SHA256(data);
+    return this.linksInfo[link] === fileHash;
   }
 }
 

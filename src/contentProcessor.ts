@@ -91,9 +91,9 @@ async function chooseFileName(
   let fileName = pathJoin(dir, `${hash}.${fileExt}`);
   let needWrite = true;
   if (await adapter.exists(fileName, false)) {
-    linkHashes.ensureHashGenerated(link, contentData);
+    await linkHashes.ensureHashGenerated(link, contentData);
     const fileData = await adapter.readBinary(fileName);
-    if (linkHashes.isSame(link, fileData)) {
+    if (await linkHashes.isSame(link, fileData)) {
       needWrite = false;
     }
   }
@@ -102,7 +102,7 @@ async function chooseFileName(
     throw new Error("Failed to generate file name for media file.");
   }
 
-  linkHashes.ensureHashGenerated(link, contentData);
+  await linkHashes.ensureHashGenerated(link, contentData);
 
   return { fileName, needWrite };
 }
